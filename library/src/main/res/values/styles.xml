@@ -1,0 +1,152 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MockerTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="android:textColorPrimary">@color/dark_grey</item>
+        <item name="android:textColorSecondary">@color/light_grey</item>
+        <item name="android:textColorTertiary">@color/medium_grey</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+
+        <item name="android:textAppearance">@style/Default.TextAppearance</item>
+        <item name="android:textAppearanceLarge">@style/TextAppearance.Title</item>
+        <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
+        <item name="android:textAppearanceSmall">@style/TextAppearance.Footnote</item>
+        <item name="android:textAppearanceInverse">@style/Default.TextAppearance.Inverse</item>
+        <item name="android:textAppearanceLargeInverse">@style/TextAppearance.Title.Inverse</item>
+        <item name="android:textAppearanceMediumInverse">@style/TextAppearance.Medium.Inverse</item>
+        <item name="android:textAppearanceSmallInverse">@style/TextAppearance.Footnote.Inverse</item>
+
+        <!-- Widgets -->
+        <item name="android:editTextStyle">@style/Widget.EditText</item>
+        <item name="editTextStyle">@style/Widget.EditText</item>
+
+
+    </style>
+
+    <style name="ToolBar.Theme" parent="@style/MockerTheme">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+
+        <item name="titleTextAppearance">@style/ToolbarTitle</item>
+
+        <item name="android:actionMenuTextAppearance">@style/Theme.ActionBar.MenuTextStyle</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/textAppearanceSmallPopupMenu</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/textAppearanceLargePopupMenu</item>
+
+        <item name="actionMenuTextAppearance">@style/Theme.ActionBar.MenuTextStyle</item>
+        <item name="textAppearanceSmallPopupMenu">@style/textAppearanceSmallPopupMenu</item>
+        <item name="textAppearanceLargePopupMenu">@style/textAppearanceLargePopupMenu</item>
+    </style>
+
+
+    <style name="Medium.Black.Text" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Block.White.Text" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">72sp</item>
+    </style>
+
+
+    <!-- EditText widget styles -->
+    <style name="Widget.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColorHint">@color/light_grey</item>
+        <item name="android:textCursorDrawable">@null</item>
+
+    </style>
+
+    <!-- Text appearance styles -->
+    <style name="Default.TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Note" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Caption" parent="@style/Default.TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Footnote" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/medium_grey</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="TextAppearance.Medium" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Headline" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Headline.Light" parent="@style/Default.TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">27sp</item>
+    </style>
+
+    <style name="Default.TextAppearance.Inverse" parent="@style/Default.TextAppearance">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.Title.Inverse" parent="@style/TextAppearance.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.Medium.Inverse" parent="@style/TextAppearance.Medium">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.Footnote.Inverse" parent="@style/TextAppearance.Footnote">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+
+    <!-- ActionBar overflow text style -->
+    <style name="textAppearanceLargePopupMenu" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="textAppearanceSmallPopupMenu" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Theme.ActionBar.MenuTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

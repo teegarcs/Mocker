@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#e6e6e6"
+             tools:context=".internals.MockerScenarioActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginBottom="2dp"
+                >
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:padding="8dp"
+                    >
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/mockerToggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/mockerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/mockerToggle"
+                        android:ellipsize="end"
+                        android:paddingRight="4dp"
+                        android:singleLine="true"
+                        android:text="Response Enabled"
+                        />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:padding="8dp"
+                    >
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/globalHeaderToggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/globalHeaderToggle"
+                        android:ellipsize="end"
+                        android:paddingRight="4dp"
+                        android:singleLine="true"
+                        android:text="Use Global Headers"
+                        />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#e6e6e6">
+                    <TextView
+                        android:id="@+id/repsonseHeaderView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:padding="8dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_alignParentLeft="true"
+                        android:ellipsize="end"
+                        android:paddingRight="4dp"
+                        android:singleLine="true"
+                        android:text="Response Headers"
+                        android:textStyle="bold"/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="Response Name:"/>
+
+                <EditText
+                    android:id="@+id/responseNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Status Code:"/>
+
+                <EditText
+                    android:id="@+id/statusCodeEditText"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="true"
+                    android:maxLength="3"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Mocked Response:"/>
+
+                <EditText
+                    android:id="@+id/mockedResponseEditText"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="false"
+                    android:inputType="textMultiLine|textLongMessage"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

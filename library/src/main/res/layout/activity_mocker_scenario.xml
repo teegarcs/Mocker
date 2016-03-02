@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+              android:layout_height="match_parent"
+             android:background="#e6e6e6"
+             tools:context=".internals.MockerScenarioActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginBottom="2dp"
+            >
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:padding="8dp"
+                >
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/mockerToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/mockerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/mockerToggle"
+                    android:ellipsize="end"
+                    android:paddingRight="4dp"
+                    android:singleLine="true"
+                    android:text="Scenario Enabled"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Service Name:"/>
+
+            <EditText
+                android:id="@+id/serviceNameEditText"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="2dp"
+                android:text="URL Pattern:"/>
+
+            <EditText
+                android:id="@+id/urlPatternEditText"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/responseRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:clipToPadding="false"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/faButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_new"
+        app:borderWidth="0dp"
+        app:backgroundTint="@color/light_green"
+        />
+
+
+
+
+
+
+</FrameLayout>

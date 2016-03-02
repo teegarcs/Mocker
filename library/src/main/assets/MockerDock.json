@@ -1,0 +1,44 @@
+{
+  "globalHeaders":[
+    {
+      "headerName":"name",
+      "headerValue":"value"
+    },
+    {
+      "headerName":"name",
+      "headerValue":"value"
+    }
+  ],
+  "mockerDisabled":"false",
+  "mockerScenario":[
+    {
+      "serviceName":"loginV2",
+      "urlPattern":"https://mservices-intg4.navyfcu.org/Authenticator/services/loginv2",
+      "requestType":"GET",
+      "mockerEnabled":"true",
+      "response":[
+        {
+          "responseName":"name",
+          "statusCode":200,
+          "includeGlobalHeader":"true",
+          "responseEnabled":"true",
+          "responseJson":"{
+          \"loginv2\": {
+          \"status\": \"FAILED\",
+          \"errors\": [{
+          \"errorCode\": \"AA01\",
+          \"errorMsg\": \" Seeee look it works! Boom..\"
+        }]
+    }
+  }",
+          "responseHeaders":[
+            {
+              "headerName":"name",
+              "headerValue":"value"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
