@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Mocker.iml" filepath="$PROJECT_DIR$/Mocker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mocker.iml" filepath="$PROJECT_DIR$/Mocker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/library.iml" filepath="$PROJECT_DIR$/app/library.iml" />
     </modules>
   </component>
