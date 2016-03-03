@@ -6,6 +6,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.CharacterStyle;
+import android.text.style.MetricAffectingSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,7 +143,7 @@ public class MockerResponseActivity extends MockerToolbarActivity{
 
     private TextWatcher responseNameWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        public void beforeTextChanged(CharSequence s, int start, int count, int t) {
 
         }
 
@@ -197,6 +199,11 @@ public class MockerResponseActivity extends MockerToolbarActivity{
 
         @Override
         public void afterTextChanged(Editable s) {
+            CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
+            for (int i = 0; i < toBeRemovedSpans.length; i++){
+                s.removeSpan(toBeRemovedSpans[i]);
+            }
+
             if(!TextUtils.isEmpty(s.toString())){
                 response.responseJson = s.toString();
             }else{

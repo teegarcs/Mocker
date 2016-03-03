@@ -81,6 +81,7 @@ public class MockerInterceptor implements Interceptor {
                 }
                 RealResponseBody body = new RealResponseBody(Headers.of(headers.toArray(new String[headers.size()])), Okio.buffer((Source) buffer));
 
+
                 okhttp3.Response fakeResponse = new Response.Builder()
                         .request(request)
                         .priorResponse(null)
