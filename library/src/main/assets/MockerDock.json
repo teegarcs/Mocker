@@ -12,8 +12,8 @@
   "mockerDisabled":"false",
   "mockerScenario":[
     {
-      "serviceName":"loginV2",
-      "urlPattern":"https://mservices-intg4.navyfcu.org/Authenticator/services/loginv2",
+      "serviceName":"login",
+      "urlPattern":"https",
       "requestType":"GET",
       "mockerEnabled":"true",
       "response":[
@@ -23,7 +23,7 @@
           "includeGlobalHeader":"true",
           "responseEnabled":"true",
           "responseJson":"{
-          \"loginv2\": {
+          \"login\": {
           \"status\": \"FAILED\",
           \"errors\": [{
           \"errorCode\": \"AA01\",
