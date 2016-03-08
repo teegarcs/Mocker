@@ -61,7 +61,11 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
         mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                scenario.mockerEnabled = isChecked;
+                if(scenario.setEnabled(isChecked)) {
+                    // the first response was enabled by default
+                    // update recyclerview to reflect this
+                    adapter.notifyItemChanged(0);
+                }
                 MockerInitializer.setUpdateMade(true);
             }
         });

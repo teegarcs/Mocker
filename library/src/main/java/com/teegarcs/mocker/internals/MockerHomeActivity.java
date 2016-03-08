@@ -132,7 +132,7 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
 
     @Override
     public void scenarioToggle(boolean enabled, int pos) {
-        mockerDock.mockerScenario.get(pos).mockerEnabled = enabled;
+        mockerDock.mockerScenario.get(pos).setEnabled(enabled);
     }
 
     @Override

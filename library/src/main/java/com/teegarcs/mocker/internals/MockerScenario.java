@@ -53,4 +53,31 @@ public class MockerScenario implements Parcelable {
         }
     };
 
+    /**
+     * Controls whether this scenario should be turned on or off for mocking
+     *
+     * <p>If no {@link MockerResponse} is already enabled for this scenario, this method will enable
+     * the first response ({@link MockerScenario#response} index 0) by default.
+     *
+     * @param onOff If true, this scenario will be enabled for mocking. False to disable mocking.
+     * @return true if {@link MockerScenario#response} did not have a {@link MockerResponse} enabled prior to this method call, otherwise false
+     */
+    public boolean setEnabled(boolean onOff) {
+        mockerEnabled = onOff;
+
+        // if no response is enabled for this scenario, enable the first response by default
+        if(onOff && response.size() > 0) {
+            for(MockerResponse mockerResponse : response) {
+                if(mockerResponse.responseEnabled) {
+                    // a response is enabled, do nothing
+                    return false;
+                }
+            }
+            // enable the first response
+            response.get(0).responseEnabled = true;
+            return true;
+        }
+
+        return false;
+    }
 }
