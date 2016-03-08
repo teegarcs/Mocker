@@ -40,6 +40,7 @@ public class ScenarioRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         MockerScenario scenario = mockerDock.mockerScenario.get(position);
 
         ((ScenarioHolder)holder).scenarioName.setText(scenario.serviceName);
+        ((ScenarioHolder)holder).scenarioToggle.setOnCheckedChangeListener(null);
         ((ScenarioHolder)holder).scenarioToggle.setChecked(scenario.mockerEnabled);
         ((ScenarioHolder)holder).scenarioToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
