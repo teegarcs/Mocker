@@ -96,7 +96,9 @@ public class MockerInterceptor implements Interceptor {
                 } catch (InterruptedException e) {
                 }
 
-                chain.proceed(request).body().close();
+                Request.Builder builder = request.newBuilder();
+                builder.url(request.url() + "/fake/path");
+                        chain.proceed(builder.build()).body().close();
                 return fakeResponse;
 
             }
