@@ -31,7 +31,7 @@
             android:ellipsize="end"
             android:paddingRight="4dp"
             android:singleLine="true"
-            android:text="All Mocker Scenarios"
+            android:text="Enable Mocker Scenarios"
             android:textSize="16dp"
             android:textStyle="bold"/>
 
