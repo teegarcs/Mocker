@@ -29,7 +29,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:padding="8dp"
                     >
 
@@ -49,16 +48,21 @@
                         android:ellipsize="end"
                         android:paddingRight="4dp"
                         android:singleLine="true"
+                        android:layout_centerVertical="true"
                         android:text="Response Enabled"
                         />
 
                 </RelativeLayout>
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"/>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:padding="8dp"
                     >
 
@@ -74,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_toLeftOf="@+id/globalHeaderToggle"
+                        android:layout_centerVertical="true"
                         android:ellipsize="end"
                         android:paddingRight="4dp"
                         android:singleLine="true"
@@ -84,23 +89,29 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"/>
+
+                <TextView
+                    android:id="@+id/repsonseHeaderView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#e6e6e6">
-                    <TextView
-                        android:id="@+id/repsonseHeaderView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:padding="8dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_alignParentLeft="true"
-                        android:ellipsize="end"
-                        android:paddingRight="4dp"
-                        android:singleLine="true"
-                        android:text="Response Headers"
-                        android:textStyle="bold"/>
-                </FrameLayout>
+                    android:background="#ffffff"
+                    android:padding="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_alignParentLeft="true"
+                    android:ellipsize="end"
+                    android:paddingRight="4dp"
+                    android:singleLine="true"
+                    android:text="Response Headers"
+                    android:textStyle="bold"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,12 +129,18 @@
                     android:maxLines="1"
                     android:layout_height="wrap_content"/>
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginTop="2dp"
                     android:text="Status Code:"/>
 
                 <EditText
@@ -136,6 +153,13 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:layout_height="wrap_content"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,6 +177,13 @@
                     android:singleLine="false"
                     android:inputType="textMultiLine|textLongMessage"
                     android:layout_height="wrap_content"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_grey"
+                    android:layout_marginTop="8dp"
+                   />
             </LinearLayout>
 
         </LinearLayout>

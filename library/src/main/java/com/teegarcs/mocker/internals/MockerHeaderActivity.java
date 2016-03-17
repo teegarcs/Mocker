@@ -40,10 +40,10 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
         globalHeader = getIntent().getExtras().getBoolean(EXTRA_GLOBAL);
 
 
-        if(globalHeader){
+        if (globalHeader) {
             setToolbarTitle("Global Headers");
             headers = mockerDock.globalHeaders;
-        }else{
+        } else {
             scenarioPosition = getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION);
             responsePosition = getIntent().getExtras().getInt(EXTRA_RESPONSE_POSITION);
             MockerScenario scenario = mockerDock.mockerScenario.get(scenarioPosition);
@@ -55,8 +55,7 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
         setUpNav(true);
 
 
-        faButton = (FloatingActionButton)findViewById(R.id.faButton);
-
+        faButton = (FloatingActionButton) findViewById(R.id.faButton);
 
 
         faButton.setOnClickListener(new OnClickListener() {
@@ -70,7 +69,7 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
             }
         });
 
-        headerRecyclerView = (RecyclerView)findViewById(R.id.headerRecyclerView);
+        headerRecyclerView = (RecyclerView) findViewById(R.id.headerRecyclerView);
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         headerRecyclerView.setLayoutManager(layoutManager);
