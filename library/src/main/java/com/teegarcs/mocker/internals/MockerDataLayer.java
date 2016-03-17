@@ -29,7 +29,7 @@ public class MockerDataLayer {
 
     public MockerDataLayer(Context context){
         this.context = context;
-        cacheManager = MockerInitializer.getMockerDataManager();
+        cacheManager = MockerInitializer.getMockerCacheManager();
     }
 
     public MockerDock getMockerDockData(){

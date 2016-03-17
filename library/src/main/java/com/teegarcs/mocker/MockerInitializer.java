@@ -22,7 +22,7 @@ public final class MockerInitializer {
     private static boolean updateMade =false;
 
     public static void install(final Application application){
-
+        mockerCacheManager = new MockerCacheManager();
         application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public final class MockerInitializer {
     public static boolean getMockerMatching(){
         return mockerMatchingEnabled;
     }
-    public static MockerCacheManager getMockerDataManager(){
+    public static MockerCacheManager getMockerCacheManager(){
         if(mockerCacheManager == null)
             mockerCacheManager = new MockerCacheManager();
         return mockerCacheManager;
