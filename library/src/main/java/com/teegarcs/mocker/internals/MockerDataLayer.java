@@ -25,11 +25,13 @@ public class MockerDataLayer {
     private Gson gson = new GsonBuilder().disableHtmlEscaping().create();
     private Context context;
     private MockerCacheManager cacheManager;
+    private String userMockerFile = null;
 
 
     public MockerDataLayer(Context context){
         this.context = context;
         cacheManager = MockerInitializer.getMockerCacheManager();
+        userMockerFile = MockerInitializer.getDefaultMockerFile();
     }
 
     public MockerDock getMockerDockData(){
@@ -50,7 +52,7 @@ public class MockerDataLayer {
         }
 
 
-        json = readAsset(MockerInternalConstants.INTERNAL_JSON_STORAGE);
+        json = readAsset(TextUtils.isEmpty(userMockerFile)?MockerInternalConstants.INTERNAL_JSON_STORAGE:userMockerFile);
         if(!TextUtils.isEmpty(json)){
             dock = (MockerDock)convertJsonToObject(MockerDock.class, json);
         }

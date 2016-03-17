@@ -20,6 +20,12 @@ public final class MockerInitializer {
     private static MockerCacheManager mockerCacheManager = null;
     private static boolean mockerMatchingEnabled = false;
     private static boolean updateMade =false;
+    private static String defaultMockerFile = null;
+
+    public static void install(Application application, String defaultMockerFile){
+        MockerInitializer.defaultMockerFile = defaultMockerFile;
+        install(application);
+    }
 
     public static void install(final Application application){
         mockerCacheManager = new MockerCacheManager();
@@ -101,6 +107,13 @@ public final class MockerInitializer {
         return new MatchingInterceptor(dataLayer);
     }
 
+    private static void setDefaultMockerFile(String defaultMockerFile){
+        MockerInitializer.defaultMockerFile = defaultMockerFile;
+    }
+
+    public static String getDefaultMockerFile(){
+        return defaultMockerFile;
+    }
     public static boolean checkforUpdate(){
         return updateMade;
     }
