@@ -105,6 +105,18 @@ overflow menu. If save is not pressed, your changes will be lost.  Once you pres
 will default to using your setup found inside of your disk cache.  If no disk cache is present Mocker uses the MockerDock file found in the 
 Assets directory of the Mocker project.  
 
+You can set up your own default file to be used for easy sharing in your applications repository by using the following code inside of your `Application` class.  Just simply pass your default file name inside of the install method and your file will be used rather than the default file found inside of the Mocker asset folder. Note that this will only work if the file you are passing in resides in your application's asset folder.  
+
+```java
+public class ExampleApplication extends Application {
+
+  @Override public void onCreate() {
+    super.onCreate();
+    MockerInitializer.install(this, "yourjsonfile.json");
+  }
+}
+```
+
 ## License
 
     Licensed under the Apache License, Version 2.0 (the "License");
