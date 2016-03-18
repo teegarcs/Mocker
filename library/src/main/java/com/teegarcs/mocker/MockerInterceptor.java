@@ -43,8 +43,13 @@ public class MockerInterceptor implements Interceptor {
             //lets see if we can find a specific scenario..
             MockerScenario scenario = null;
             for(MockerScenario mockerScenario : mockerDock.mockerScenario){
-                String urlPattern = mockerScenario.urlPattern.replace("{}", "[^<>#]+");
-                if(urlPattern.matches(request.url().toString()) || urlPattern.equalsIgnoreCase(request.url().toString())){
+
+                //first we need to escape all our literals
+                String urlPattern = mockerScenario.urlPattern.replaceAll("([\\\\\\.\\[\\{\\(\\*\\+\\?\\^\\$\\|])", "\\\\$1");
+                //next lets remove our easy wildcards entered by user
+                urlPattern = urlPattern.replace("\\{}", "[^<>#]+");
+                //we are ready to match now
+                if(request.url().toString().matches(urlPattern)){
                     //we found a match...
                     scenario = mockerScenario;
                     break;
