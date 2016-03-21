@@ -49,7 +49,7 @@ In your `OkHttpClient` builder:
 ```java
 OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(MockerInitializer.getMockerInterceptor(context));
-        builder.addNetworkInterceptor(MockerInitializer.getMatchingInterceptor(context)); //only needed if you wish to match
+        builder.addInterceptor(MockerInitializer.getMatchingInterceptor(context)); //only needed if you wish to match
         ......
         return builder.build();
 ```
