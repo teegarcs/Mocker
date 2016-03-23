@@ -61,6 +61,25 @@
         android:layout_height="1px"
         android:background="@color/divider_grey"/>
 
+    <TextView
+        android:id="@+id/mockerViewer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="#ffffff"
+        android:ellipsize="end"
+        android:padding="8dp"
+        android:paddingRight="4dp"
+        android:singleLine="true"
+        android:text="Mocker Scenario Viewer"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_grey"/>
+
 
     <FrameLayout
         android:id="@+id/homeScreenLayout"

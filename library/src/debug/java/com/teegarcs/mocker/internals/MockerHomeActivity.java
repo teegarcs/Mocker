@@ -39,7 +39,7 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
     private LinearLayoutManager linearLayoutManager;
     private ScenarioRecyclerAdapter adapter;
     private FloatingActionButton faButton;
-    private View globalHeaderView;
+    private View globalHeaderView, mockerViewer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
                 scenario.requestType = RequestType.GET;
                 mockerDock.mockerScenario.add(scenario);
                 adapter.notifyDataSetChanged();
-                scenarioSelected(mockerDock.mockerScenario.size()-1);
+                scenarioSelected(mockerDock.mockerScenario.size() - 1);
             }
         });
 
@@ -106,6 +106,15 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
             }
         });
 
+
+        mockerViewer = findViewById(R.id.mockerViewer);
+        mockerViewer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forward = new Intent(MockerHomeActivity.this, MockerJsonViewerActivity.class);
+                startActivity(forward);
+            }
+        });
 
 
     }
