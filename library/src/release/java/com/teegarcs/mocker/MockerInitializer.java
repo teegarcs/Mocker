@@ -2,7 +2,7 @@ package com.teegarcs.mocker;
 
 import android.app.Application;
 import android.content.Context;
-
+import android.util.Log;
 
 
 /**
@@ -46,11 +46,11 @@ public final class MockerInitializer {
     }
 
     public static MockerInterceptor getMockerInterceptor(Context context){
-       return null;
+       return new MockerInterceptor();
     }
 
     public static MatchingInterceptor getMatchingInterceptor(Context context){
-       return null;
+       return new MatchingInterceptor();
     }
 
     private static void setDefaultMockerFile(String defaultMockerFile){

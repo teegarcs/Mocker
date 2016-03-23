@@ -46,11 +46,32 @@ public class MatchingInterceptor implements Interceptor {
         this.mockerDock = dataLayer.getMockerDockData();
         if(MockerInitializer.getMockerMatching()){
             Response response = chain.proceed(request);
-            MockerScenario scenario = new MockerScenario();
-            scenario.requestType = RequestType.GET;
-            scenario.mockerEnabled = false;
-            scenario.serviceName = request.url().toString();
-            scenario.urlPattern = request.url().toString();
+            MockerScenario scenario = null;
+            //lets see if we have another scenario with the same url pattern
+            for(MockerScenario mockerScenario : mockerDock.mockerScenario) {
+
+                //first we need to escape all our literals
+                String urlPattern = mockerScenario.urlPattern.replaceAll("([\\\\\\.\\[\\{\\(\\*\\+\\?\\^\\$\\|])", "\\\\$1");
+                //next lets remove our easy wildcards entered by user
+                urlPattern = urlPattern.replace("\\{}", "[^<>#]+");
+                //we are ready to match now
+                if (request.url().toString().matches(urlPattern)) {
+                    //we found a match...
+                    scenario = mockerScenario;
+                    break;
+
+                }
+            }
+            if(scenario == null){
+                scenario = new MockerScenario();
+                scenario.requestType = RequestType.GET;
+                scenario.mockerEnabled = false;
+                scenario.serviceName = request.url().toString();
+                scenario.urlPattern = request.url().toString();
+                //add the scenario to our list..
+                mockerDock.mockerScenario.add(scenario);
+            }
+
             MockerResponse mockerResponse = new MockerResponse();
             mockerResponse.responseEnabled = false;
             mockerResponse.includeGlobalHeader = true;
@@ -78,7 +99,6 @@ public class MatchingInterceptor implements Interceptor {
                 mockerResponse.responseHeaders.add(mockerHeader);
             }
             scenario.response.add(mockerResponse);
-            mockerDock.mockerScenario.add(scenario);
             return response;
 
         }else {

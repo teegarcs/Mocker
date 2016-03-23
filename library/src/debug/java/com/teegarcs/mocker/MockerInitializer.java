@@ -51,7 +51,6 @@ public final class MockerInitializer {
             @Override
             public void onActivityStarted(Activity activity) {
                 MockerInternals.showMockerIntroNotification(application);
-                //if(mockerMatchingEnabled)
             }
 
             @Override
