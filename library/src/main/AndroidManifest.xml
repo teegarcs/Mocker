@@ -3,31 +3,7 @@
           package="com.teegarcs.mocker" >
 
     <application>
-        <activity
-            android:name=".internals.MockerHomeActivity"
-            android:theme="@style/MockerTheme">
-        </activity>
 
-        <activity
-            android:name=".internals.MockerScenarioActivity"
-            android:theme="@style/MockerTheme">
-        </activity>
-
-        <activity
-            android:name=".internals.MockerResponseActivity"
-            android:theme="@style/MockerTheme">
-        </activity>
-
-        <activity
-            android:name=".internals.MockerHeaderActivity"
-            android:theme="@style/MockerTheme">
-        </activity>
-
-        <receiver android:name=".MockMatchingReceiver" >
-            <intent-filter>
-                <action android:name="com.teegarcs.mocker.DISABLE_MATCHING" />
-            </intent-filter>
-        </receiver>
 
     </application>
 
