@@ -22,8 +22,8 @@ repositories {
   maven { url 'https://github.com/teegarcs/Mocker/raw/master/'}
 }
  dependencies {
-  debugCompile 'com.teegarcs.mocker:debug:0.9.0@aar'
-  releaseCompile 'com.teegarcs.mocker:release:0.9.0@aar'
+  debugCompile 'com.teegarcs.mocker:debug:1.0.0@aar'
+  releaseCompile 'com.teegarcs.mocker:release:1.0.0@aar'
  }
 ```
 
