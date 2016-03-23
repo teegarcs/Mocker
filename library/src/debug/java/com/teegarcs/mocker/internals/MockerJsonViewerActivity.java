@@ -19,6 +19,7 @@ public class MockerJsonViewerActivity extends MockerToolbarActivity {
         setToolbarTitle("Mocker Viewer");
         setUpNav(true);
         dataLayer = new MockerDataLayer(this);
+        mockerDock = dataLayer.getMockerDockData();
         TextView jsonView = (TextView)findViewById(R.id.jsonText);
         String tempdata = dataLayer.convertObjectToJson(mockerDock);
         if(!TextUtils.isEmpty(tempdata)){
