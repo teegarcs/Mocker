@@ -12,8 +12,22 @@ All this in a simple to follow UI which is launched by selecting the notificatio
 
 ## Getting started
 
-*Currently Mocker is not offered as a Jar file so you have to clone the repository locally in order to add it to your application. 
-this is temporary and will be offered as a Jar file soon.*
+*Currently Mocker is offered as a Maven dependency or by using a local copy of the repository*
+
+**Using Maven Dependency**
+
+In your `build.gradle`:
+```gradle
+repositories {
+  maven { url 'https://github.com/teegarcs/Mocker/raw/master/'}
+}
+ dependencies {
+  debugCompile 'com.teegarcs.mocker:debug:0.9.0@aar'
+  releaseCompile 'com.teegarcs.mocker:release:0.9.0@aar'
+ }
+```
+
+**Using Local Repository**
 
 To begin, first clone the Mocker repository to your workstation. 
 
@@ -31,7 +45,7 @@ In your `build.gradle`:
    compile project(path: ':mocker')
  }
 ```
-
+###Initializing Mocker
 In your `Application` class:
 
 ```java
