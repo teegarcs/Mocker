@@ -26,6 +26,7 @@ repositories {
   releaseCompile 'com.teegarcs.mocker:release:1.0.1@aar'
  }
 ```
+*There is a release and a debug build for convenience only. The purpose of the release build is to provide the barebones Mocker project so that you do not have to manually remove any code when making a production build. The release build contains the methods used in your code but removes the rest of its dependencies.*
 
 **Using Local Repository**
 
@@ -119,7 +120,10 @@ overflow menu. If save is not pressed, your changes will be lost.  Once you pres
 will default to using your setup found inside of your disk cache.  If no disk cache is present Mocker uses the MockerDock file found in the 
 Assets directory of the Mocker project.  
 
+##Sharing Mocker Configuration
 You can set up your own default file to be used for easy sharing in your applications repository by using the following code inside of your `Application` class.  Just simply pass your default file name inside of the install method and your file will be used rather than the default file found inside of the Mocker asset folder. Note that this will only work if the file you are passing in resides in your application's asset folder.  
+
+For convenience you can share the entire Mocker json from the local cache on any Mocker screen as plain text.  You may also find it useful to manually copy the desired json from Mocker's json viewer.  After retrieving the json configuration text, just paste the text into your default asset file created in your application's asset folder for later use and reuse by your teammates. 
 
 ```java
 public class ExampleApplication extends Application {
