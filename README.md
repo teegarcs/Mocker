@@ -43,7 +43,8 @@ Where the settings directory is the path to your mocker project. The /library is
 In your `build.gradle`:
 ```gradle
  dependencies {
-   compile project(path: ':mocker')
+  releaseCompile project(path: ':mocker', configuration: 'release')
+  debugCompile project(path: ':mocker', configuration: 'debug')
  }
 ```
 ###Initializing Mocker
