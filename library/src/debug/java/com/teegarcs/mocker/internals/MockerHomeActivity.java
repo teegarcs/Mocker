@@ -100,8 +100,8 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
         globalHeaderView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forward = new Intent(MockerHomeActivity.this, MockerHeaderActivity.class);
-                forward.putExtra(MockerHeaderActivity.EXTRA_GLOBAL, true);
+                Intent forward = new Intent(MockerHomeActivity.this, MockerOptionsActivity.class);
+                forward.putExtra(MockerOptionsActivity.EXTRA_GLOBAL, true);
                 startActivity(forward);
             }
         });

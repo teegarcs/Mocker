@@ -110,7 +110,7 @@ public class MockerInterceptor implements Interceptor {
                         .build();
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(mockerDock.globalRequestDuration*1000);
                 } catch (InterruptedException e) {
                 }
 

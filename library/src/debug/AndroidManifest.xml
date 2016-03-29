@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".internals.MockerHeaderActivity"
+            android:name=".internals.MockerOptionsActivity"
             android:theme="@style/MockerTheme">
         </activity>
 

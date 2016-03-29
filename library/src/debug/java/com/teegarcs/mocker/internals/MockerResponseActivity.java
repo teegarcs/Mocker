@@ -109,10 +109,10 @@ public class MockerResponseActivity extends MockerToolbarActivity{
         repsonseHeaderView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forward = new Intent(MockerResponseActivity.this, MockerHeaderActivity.class);
-                forward.putExtra(MockerHeaderActivity.EXTRA_GLOBAL, false);
-                forward.putExtra(MockerHeaderActivity.EXTRA_RESPONSE_POSITION, responsePosition);
-                forward.putExtra(MockerHeaderActivity.EXTRA_SCENARIO_POSITION, scenarioPosition);
+                Intent forward = new Intent(MockerResponseActivity.this, MockerOptionsActivity.class);
+                forward.putExtra(MockerOptionsActivity.EXTRA_GLOBAL, false);
+                forward.putExtra(MockerOptionsActivity.EXTRA_RESPONSE_POSITION, responsePosition);
+                forward.putExtra(MockerOptionsActivity.EXTRA_SCENARIO_POSITION, scenarioPosition);
                 startActivity(forward);
             }
         });

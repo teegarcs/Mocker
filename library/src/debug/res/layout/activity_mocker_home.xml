@@ -52,7 +52,7 @@
         android:padding="8dp"
         android:paddingRight="4dp"
         android:singleLine="true"
-        android:text="Global Headers"
+        android:text="Global Options"
         android:textSize="16dp"
         android:textStyle="bold"/>
 

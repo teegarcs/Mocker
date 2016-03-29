@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.teegarcs.mocker.R;
 import com.teegarcs.mocker.internals.HeaderRecyclerAdapter.HeaderListener;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 
  * Created by cteegarden on 3/1/16.
  */
-public class MockerHeaderActivity extends MockerToolbarActivity implements HeaderListener {
+public class MockerOptionsActivity extends MockerToolbarActivity implements HeaderListener {
     public static final String EXTRA_SCENARIO_POSITION = "EXTRA_SCENARIO_POSITION";
     public static final String EXTRA_RESPONSE_POSITION = "EXTRA_RESPONSE_POSITION";
     public static final String EXTRA_GLOBAL = "EXTRA_GLOBAL";
@@ -41,6 +44,8 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
     private ArrayList<MockerHeader> headers;
     private boolean globalHeader = false;
     private int scenarioPosition, responsePosition;
+    private SeekBar requestDurationBar;
+    private TextView requestDurationValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,10 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
 
 
         if (globalHeader) {
-            setToolbarTitle("Global Headers");
+            setToolbarTitle("Global Options");
             headers = mockerDock.globalHeaders;
+            findViewById(R.id.request_duration_seekbar_container).setVisibility(View.VISIBLE);
+            findViewById(R.id.divider).setVisibility(View.VISIBLE);
         } else {
             scenarioPosition = getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION);
             responsePosition = getIntent().getExtras().getInt(EXTRA_RESPONSE_POSITION);
@@ -87,6 +94,31 @@ public class MockerHeaderActivity extends MockerToolbarActivity implements Heade
         headerRecyclerView.setLayoutManager(layoutManager);
         adapter = new HeaderRecyclerAdapter(this, headers, this);
         headerRecyclerView.setAdapter(adapter);
+
+        // request duration views
+        requestDurationBar = (SeekBar) findViewById(R.id.request_duration_seekbar);
+        requestDurationValue = (TextView) findViewById(R.id.request_duration_value);
+        requestDurationBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.i("MockerOptions", "onProgressChanged to: " + i);
+                requestDurationValue.setText(i + " seconds");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int i = seekBar.getProgress();
+                Log.i("MockerOptions", "Setting request duration to: " + i);
+                mockerDock.globalRequestDuration = seekBar.getProgress();
+            }
+        });
+        requestDurationBar.setProgress(mockerDock.globalRequestDuration);
+
 
     }
 

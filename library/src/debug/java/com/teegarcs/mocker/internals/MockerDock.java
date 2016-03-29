@@ -21,10 +21,11 @@ import java.util.ArrayList;
  * Created by cteegarden on 3/1/16.
  */
 public class MockerDock implements Parcelable {
-
+    public static final int DEFAULT_GLOBAL_REQUEST_DURATION = 1;
     public ArrayList<MockerHeader> globalHeaders = new ArrayList<>();
     public boolean mockerDisabled = false;
     public ArrayList<MockerScenario> mockerScenario = new ArrayList<>();
+    public int globalRequestDuration = DEFAULT_GLOBAL_REQUEST_DURATION;
 
     public MockerDock(){}
 
@@ -32,6 +33,7 @@ public class MockerDock implements Parcelable {
         in.readTypedList(globalHeaders, MockerHeader.CREATOR);
         mockerDisabled = in.readInt()==1;
         in.readTypedList(mockerScenario, MockerScenario.CREATOR);
+        globalRequestDuration = in.readInt();
     }
 
 
@@ -43,8 +45,9 @@ public class MockerDock implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(globalHeaders);
-        dest.writeInt(mockerDisabled?1:0);
+        dest.writeInt(mockerDisabled ? 1 : 0);
         dest.writeTypedList(mockerScenario);
+        dest.writeInt(globalRequestDuration);
     }
 
     public static final Creator<MockerDock> CREATOR = new Creator<MockerDock>() {
