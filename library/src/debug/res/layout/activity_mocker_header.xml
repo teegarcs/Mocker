@@ -42,8 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/request_duration_text_container"
             android:max="30"
-            android:progress="20"
-            android:secondaryProgress="20"/>
+            android:progress="20"/>
     </RelativeLayout>
 
     <View

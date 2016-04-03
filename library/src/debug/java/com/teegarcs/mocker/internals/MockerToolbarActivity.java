@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,18 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if(MockerInitializer.getMockerMatching()){
+            menu.findItem(R.id.action_matching).setTitle(getString(R.string.disable_mocker_matching));
+        }else{
+            menu.findItem(R.id.action_matching).setTitle(getString(R.string.enable_mocker_matching));
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_save) {
@@ -86,7 +99,12 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
             startActivity(sendIntent);
             return true;
         }else if(id == R.id.action_matching){
-            MockerInitializer.turnOnMatching(this);
+            if(MockerInitializer.getMockerMatching()){
+                MockerInitializer.turnOffMatching(this);
+            }else{
+                MockerInitializer.turnOnMatching(this);
+            }
+            invalidateOptionsMenu();
         }else if(id == android.R.id.home){
             upNavPressed();
             return true;

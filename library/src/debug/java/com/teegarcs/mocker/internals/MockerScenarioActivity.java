@@ -134,11 +134,14 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if(id == R.id.action_delete){
             mockerDock.mockerScenario.remove(scenarioPosition);
             MockerInitializer.setUpdateMade(true);
             finish();
+            return true;
+        }else if(id == R.id.action_duplicate){
+            mockerDock.mockerScenario.add(new MockerScenario(mockerDock.mockerScenario.get(scenarioPosition)));
+            MockerInitializer.setUpdateMade(true);
             return true;
         }else{
             return super.onOptionsItemSelected(item);

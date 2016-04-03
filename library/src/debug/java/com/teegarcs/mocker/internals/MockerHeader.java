@@ -30,6 +30,11 @@ public class MockerHeader implements Parcelable {
         headerValue = in.readString();
     }
 
+    public MockerHeader(MockerHeader copy){
+        this.headerName = copy.headerName;
+        this.headerValue = copy.headerValue;
+    }
+
     @Override
     public int describeContents() {
         return 0;

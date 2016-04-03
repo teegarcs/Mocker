@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mocker</string>
-
+    <string name="enable_mocker_matching">Match Incoming</string>
+    <string name="disable_mocker_matching">Disable Matching</string>
 
 </resources>

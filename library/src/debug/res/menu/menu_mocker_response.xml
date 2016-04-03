@@ -13,12 +13,17 @@
           app:showAsAction="never"/>
 
     <item android:id="@+id/action_matching"
-          android:title="Match Incoming"
+          android:title="@string/enable_mocker_matching"
           android:orderInCategory="102"
           app:showAsAction="never"/>
 
     <item android:id="@+id/action_delete"
           android:title="Delete Response"
           android:orderInCategory="103"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/action_duplicate"
+          android:title="Duplicate Response"
+          android:orderInCategory="104"
           app:showAsAction="never"/>
 </menu>

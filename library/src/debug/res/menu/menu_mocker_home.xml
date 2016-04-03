@@ -13,7 +13,7 @@
           app:showAsAction="never"/>
 
     <item android:id="@+id/action_matching"
-          android:title="Match Incoming"
+          android:title="@string/enable_mocker_matching"
           android:orderInCategory="102"
           app:showAsAction="never"/>
 

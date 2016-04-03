@@ -39,6 +39,17 @@ public class MockerResponse implements Parcelable {
         in.readTypedList(responseHeaders, MockerHeader.CREATOR);
     }
 
+    public MockerResponse(MockerResponse copy){
+        this.responseName = copy.responseName;
+        this.statusCode = copy.statusCode;
+        this.includeGlobalHeader = copy.includeGlobalHeader;
+        this.responseEnabled = copy.responseEnabled;
+        this.responseJson = copy.responseJson;
+        for(MockerHeader header : copy.responseHeaders){
+            this.responseHeaders.add(new MockerHeader(header));
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;

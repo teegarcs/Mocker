@@ -144,6 +144,10 @@ public class MockerResponseActivity extends MockerToolbarActivity{
             finish();
             return true;
 
+        }else if(id == R.id.action_duplicate){
+            scenario.response.add(new MockerResponse(scenario.response.get(responsePosition)));
+            MockerInitializer.setUpdateMade(true);
+            return true;
         }else{
             return super.onOptionsItemSelected(item);
         }

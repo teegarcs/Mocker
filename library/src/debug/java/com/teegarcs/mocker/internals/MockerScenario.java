@@ -39,6 +39,16 @@ public class MockerScenario implements Parcelable {
         in.readTypedList(response, MockerResponse.CREATOR);
     }
 
+    public MockerScenario(MockerScenario copy){
+        this.serviceName = copy.serviceName;
+        this.urlPattern = copy.urlPattern;
+        this.requestType = copy.requestType;
+        this.mockerEnabled = copy.mockerEnabled;
+        for(MockerResponse rp : copy.response){
+            response.add(new MockerResponse(rp));
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;

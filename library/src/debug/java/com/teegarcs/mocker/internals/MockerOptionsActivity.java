@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,7 +100,6 @@ public class MockerOptionsActivity extends MockerToolbarActivity implements Head
         requestDurationBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Log.i("MockerOptions", "onProgressChanged to: " + i);
                 requestDurationValue.setText(i + " seconds");
             }
 
@@ -113,7 +111,6 @@ public class MockerOptionsActivity extends MockerToolbarActivity implements Head
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int i = seekBar.getProgress();
-                Log.i("MockerOptions", "Setting request duration to: " + i);
                 mockerDock.globalRequestDuration = seekBar.getProgress();
             }
         });
