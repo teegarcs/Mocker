@@ -22,8 +22,8 @@ repositories {
   maven { url 'https://github.com/teegarcs/Mocker/raw/master/'}
 }
  dependencies {
-  debugCompile 'com.teegarcs.mocker:debug:1.0.1@aar'
-  releaseCompile 'com.teegarcs.mocker:release:1.0.1@aar'
+  debugCompile 'com.teegarcs.mocker:debug:1.1.0@aar'
+  releaseCompile 'com.teegarcs.mocker:release:1.1.0@aar'
  }
 ```
 *There is a release and a debug build for convenience only. The purpose of the release build is to provide the barebones Mocker project so that you do not have to manually remove any code when making a production build. The release build contains the methods used in your code but removes the rest of its dependencies.*
@@ -82,7 +82,7 @@ selections to be made.  You can also select, "Global Header" which are headers a
 to enter into the individual editing or select the add action button to add a new scenario.  
 
 *From every screen you have the ability to turn Mocker Matching on which enables you to create mocked responses based on real requests/responses
-made.  To enable Mocker Matching, toggle it on using the overflow menu.  To disable Mocker Matching, open the notification and select the disable action.*
+made. Mocker simply monitors the traffic of your application and automatically generates scenarios and responses for you. When Mocker Mathing is enabled, all mocker scenarios are considered disabled and your real request will be made.  To enable Mocker Matching, toggle it on using the overflow menu.  To disable Mocker Matching, open the notification and select the disable action or toggle it back off via the overflow menu.*
 
 ![mocker-home.png](screenshots/mocker-home.png)
 
@@ -103,9 +103,9 @@ and assign response specific headers as desired.  In the overflow menu you will 
 
 ![mocker-response.png](screenshots/mocker-response.png)
 
-###Headers
+###Headers and Request Durations
 
-The below screen shot is where you can edit global headers and response specific headers depending upon your selection. 
+The below screen shot is where you can edit global headers and response specific headers depending upon your selection. You also have the ability to adjust how long you would like each request to take by simply dragging the slider from 1 to 30 seconds.  
 
 ![mocker-headers.png](screenshots/mocker-headers.png)
 
