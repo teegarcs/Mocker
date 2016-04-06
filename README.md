@@ -126,7 +126,7 @@ You can set up your own default file to be used for easy sharing in your applica
 
 For convenience you can share the entire Mocker json from the local cache on any Mocker screen as plain text.  You may also find it useful to manually copy the desired json from Mocker's json viewer.  After retrieving the json configuration text, just paste the text into your default asset file created in your application's asset folder for later use and reuse by your teammates. 
 
-The website below is particularly useful when formatting JSON with escaped characters.  It is highly suggested to use this tool whenever you need to manually add html outside of Mocker or whenever you are updating your repository shared Mocker file.  
+The website below is particularly useful when formatting JSON with escaped characters.  It is highly suggested to use this tool whenever you need to manually add JSON to your file outside of Mocker or whenever you are updating your repository shared Mocker file.  
 
 http://www.jsoneditoronline.org/
 
