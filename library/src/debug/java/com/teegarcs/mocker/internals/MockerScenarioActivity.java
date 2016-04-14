@@ -143,6 +143,14 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
             mockerDock.mockerScenario.add(new MockerScenario(mockerDock.mockerScenario.get(scenarioPosition)));
             MockerInitializer.setUpdateMade(true);
             return true;
+        }else if (id == R.id.action_share) {
+            String tempdata = dataLayer.convertObjectToJson(mockerDock.mockerScenario.get(scenarioPosition));
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.setType("text/plain");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, tempdata);
+            startActivity(sendIntent);
+            return true;
         }else{
             return super.onOptionsItemSelected(item);
         }

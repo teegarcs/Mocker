@@ -8,7 +8,7 @@
           app:showAsAction="never"/>
 
     <item android:id="@+id/action_share"
-          android:title="Share Scenarios"
+          android:title="Share Scenario"
           android:orderInCategory="101"
           app:showAsAction="never"/>
 

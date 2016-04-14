@@ -7,14 +7,9 @@
           android:orderInCategory="100"
           app:showAsAction="never"/>
 
-    <item android:id="@+id/action_share"
-          android:title="Share Scenarios"
-          android:orderInCategory="101"
-          app:showAsAction="never"/>
-
     <item android:id="@+id/action_matching"
           android:title="@string/enable_mocker_matching"
-          android:orderInCategory="102"
+          android:orderInCategory="101"
           app:showAsAction="never"/>
 
 </menu>

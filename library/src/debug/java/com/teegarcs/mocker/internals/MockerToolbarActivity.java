@@ -90,14 +90,6 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_save) {
             dataLayer.saveContent(dataLayer.convertObjectToJson(mockerDock), MockerInternalConstants.INTERNAL_JSON_STORAGE, this);
-        }else if (id == R.id.action_share) {
-            String tempdata = dataLayer.convertObjectToJson(mockerDock);
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.setType("text/plain");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, tempdata);
-            startActivity(sendIntent);
-            return true;
         }else if(id == R.id.action_matching){
             if(MockerInitializer.getMockerMatching()){
                 MockerInitializer.turnOffMatching(this);
