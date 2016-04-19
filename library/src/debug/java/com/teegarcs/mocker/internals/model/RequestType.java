@@ -1,4 +1,4 @@
-package com.teegarcs.mocker.internals;
+package com.teegarcs.mocker.internals.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,6 +1,5 @@
 package com.teegarcs.mocker.internals;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.teegarcs.mocker.MockerInitializer;
 import com.teegarcs.mocker.R;
+import com.teegarcs.mocker.internals.presenters.BasePresenter;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,13 +33,9 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String toolbarTitle;
     private boolean upNav = false;
-    protected MockerDataLayer dataLayer;
-    protected MockerDock mockerDock;
+    private BasePresenter basePresenter;
 
     protected abstract void upNavPressed();
-
-    protected void setWindowTransitions() {
-    }
 
 
     @Override
@@ -55,16 +51,11 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        setWindowTransitions();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(toolbarTitle);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upNav);
-    }
+        setUpNav(upNav);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -75,7 +66,6 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         if(MockerInitializer.getMockerMatching()){
             menu.findItem(R.id.action_matching).setTitle(getString(R.string.disable_mocker_matching));
         }else{
@@ -89,7 +79,7 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_save) {
-            dataLayer.saveContent(dataLayer.convertObjectToJson(mockerDock), MockerInternalConstants.INTERNAL_JSON_STORAGE, this);
+            basePresenter.saveData(this);
         }else if(id == R.id.action_matching){
             if(MockerInitializer.getMockerMatching()){
                 MockerInitializer.turnOffMatching(this);
@@ -127,7 +117,6 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
     public Toolbar getToolbar() {
         if (toolbar == null)
             toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         return toolbar;
     }
 
@@ -140,8 +129,12 @@ public abstract class MockerToolbarActivity extends AppCompatActivity {
 
     public void setUpNav(boolean upNav) {
         this.upNav = upNav;
-        if (toolbar != null) {
+        if (toolbar != null && getSupportActionBar()!=null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(upNav);
         }
+    }
+
+    protected void setBasePresenter(BasePresenter presenter){
+        this.basePresenter = presenter;
     }
 }

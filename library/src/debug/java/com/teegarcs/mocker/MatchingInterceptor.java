@@ -1,11 +1,11 @@
 package com.teegarcs.mocker;
 
 import com.teegarcs.mocker.internals.MockerDataLayer;
-import com.teegarcs.mocker.internals.MockerDock;
-import com.teegarcs.mocker.internals.MockerHeader;
-import com.teegarcs.mocker.internals.MockerResponse;
-import com.teegarcs.mocker.internals.MockerScenario;
-import com.teegarcs.mocker.internals.RequestType;
+import com.teegarcs.mocker.internals.model.MockerDock;
+import com.teegarcs.mocker.internals.model.MockerHeader;
+import com.teegarcs.mocker.internals.model.MockerResponse;
+import com.teegarcs.mocker.internals.model.MockerScenario;
+import com.teegarcs.mocker.internals.model.RequestType;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

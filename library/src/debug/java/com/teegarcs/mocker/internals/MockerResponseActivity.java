@@ -6,8 +6,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.CharacterStyle;
-import android.text.style.MetricAffectingSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
-import com.teegarcs.mocker.MockerInitializer;
 import com.teegarcs.mocker.R;
+import com.teegarcs.mocker.internals.interactors.ResponseInteractor;
+import com.teegarcs.mocker.internals.model.MockerResponse;
+import com.teegarcs.mocker.internals.presenters.ResponsePresenter;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,31 +34,22 @@ import com.teegarcs.mocker.R;
 
  * Created by cteegarden on 3/1/16.
  */
-public class MockerResponseActivity extends MockerToolbarActivity{
+public class MockerResponseActivity extends MockerToolbarActivity implements ResponseInteractor{
     public static final String EXTRA_SCENARIO_POSITION = "EXTRA_SCENARIO_POSITION";
     public static final String EXTRA_RESPONSE_POSITION = "EXTRA_RESPONSE_POSITION";
-    private MockerScenario scenario;
-    private MockerResponse response;
-
     private SwitchCompat mockerToggle, globalHeaderToggle;
     private EditText responseNameEditText, statusCodeEditText, mockedResponseEditText;
-    private View repsonseHeaderView;
+    private View responseHeaderView;
 
-    private int scenarioPosition, responsePosition;
+    private ResponsePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mocker_response);
-        dataLayer = new MockerDataLayer(this);
-        mockerDock = dataLayer.getMockerDockData();
-
-        scenarioPosition = getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION);
-        responsePosition = getIntent().getExtras().getInt(EXTRA_RESPONSE_POSITION);
-
-        scenario = mockerDock.mockerScenario.get(scenarioPosition);
-        response = scenario.response.get(responsePosition);
-        setToolbarTitle(response.responseName);
+        presenter = new ResponsePresenter(new MockerDataLayer(this),getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION),
+                getIntent().getExtras().getInt(EXTRA_RESPONSE_POSITION));
+        setBasePresenter(presenter);
         setUpNav(true);
 
         mockerToggle = (SwitchCompat)findViewById(R.id.mockerToggle);
@@ -66,60 +57,51 @@ public class MockerResponseActivity extends MockerToolbarActivity{
         responseNameEditText = (EditText)findViewById(R.id.responseNameEditText);
         statusCodeEditText = (EditText)findViewById(R.id.statusCodeEditText);
         mockedResponseEditText = (EditText)findViewById(R.id.mockedResponseEditText);
-
-
-
-        if(!TextUtils.isEmpty(response.responseName))
-            responseNameEditText.setText(response.responseName);
-        statusCodeEditText.setText(String.valueOf(response.statusCode));
-        if(!TextUtils.isEmpty(response.responseJson))
-            mockedResponseEditText.setText(response.responseJson);
-
-        mockerToggle.setChecked(response.responseEnabled);
-        mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                response.responseEnabled = isChecked;
-                if (isChecked) {
-                    //if we are enabling one... disable the rest
-                    for (int i = 0; i < scenario.response.size(); i++) {
-                        if (responsePosition == i)
-                            continue;
-                        scenario.response.get(i).responseEnabled = false;
-                    }
-                }
-                MockerInitializer.setUpdateMade(true);
-            }
-        });
-
-        globalHeaderToggle.setChecked(response.includeGlobalHeader);
-        globalHeaderToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                response.includeGlobalHeader = isChecked;
-            }
-        });
-
+        responseHeaderView = findViewById(R.id.repsonseHeaderView);
 
         mockedResponseEditText.addTextChangedListener(mockedResponseWatcher);
         responseNameEditText.addTextChangedListener(responseNameWatcher);
         statusCodeEditText.addTextChangedListener(statusCodeWatcher);
 
-        repsonseHeaderView = findViewById(R.id.repsonseHeaderView);
-        repsonseHeaderView.setOnClickListener(new OnClickListener() {
+        mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent forward = new Intent(MockerResponseActivity.this, MockerOptionsActivity.class);
-                forward.putExtra(MockerOptionsActivity.EXTRA_GLOBAL, false);
-                forward.putExtra(MockerOptionsActivity.EXTRA_RESPONSE_POSITION, responsePosition);
-                forward.putExtra(MockerOptionsActivity.EXTRA_SCENARIO_POSITION, scenarioPosition);
-                startActivity(forward);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.toggleResponse(isChecked);
+            }
+        });
+
+
+        globalHeaderToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.toggleGlobalHeader(isChecked);
             }
         });
 
 
 
+        responseHeaderView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forward = new Intent(MockerResponseActivity.this, MockerOptionsActivity.class);
+                forward.putExtra(MockerOptionsActivity.EXTRA_GLOBAL, false);
+                forward.putExtra(MockerOptionsActivity.EXTRA_RESPONSE_POSITION, presenter.getResponsePos());
+                forward.putExtra(MockerOptionsActivity.EXTRA_SCENARIO_POSITION, presenter.getScenarioPos());
+                startActivity(forward);
+            }
+        });
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        presenter.takeView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
     }
 
     @Override
@@ -139,17 +121,15 @@ public class MockerResponseActivity extends MockerToolbarActivity{
         int id = item.getItemId();
 
         if(id == R.id.action_delete){
-            scenario.response.remove(responsePosition);
-            MockerInitializer.setUpdateMade(true);
+            presenter.deleteResponse();
             finish();
             return true;
 
         }else if(id == R.id.action_duplicate){
-            scenario.response.add(new MockerResponse(scenario.response.get(responsePosition)));
-            MockerInitializer.setUpdateMade(true);
+            presenter.duplicateResponse();
             return true;
         }else if (id == R.id.action_share) {
-            String tempdata = dataLayer.convertObjectToJson(scenario.response.get(responsePosition));
+            String tempdata = presenter.getShareData();
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.setType("text/plain");
@@ -159,8 +139,6 @@ public class MockerResponseActivity extends MockerToolbarActivity{
         }else{
             return super.onOptionsItemSelected(item);
         }
-
-
     }
 
 
@@ -178,14 +156,7 @@ public class MockerResponseActivity extends MockerToolbarActivity{
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(s.toString())){
-                response.responseName = s.toString();
-            }else{
-                response.responseName = "";
-            }
-
-            MockerInitializer.setUpdateMade(true);
-            setToolbarTitle(response.responseName);
+            presenter.updateResponseName(s.toString());
         }
     };
 
@@ -202,11 +173,7 @@ public class MockerResponseActivity extends MockerToolbarActivity{
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(s.toString())){
-               response.statusCode = Integer.parseInt(s.toString());
-            }else{
-                response.statusCode = 0;
-            }
+            presenter.updateStatusCode(s.toString());
         }
     };
 
@@ -223,17 +190,26 @@ public class MockerResponseActivity extends MockerToolbarActivity{
 
         @Override
         public void afterTextChanged(Editable s) {
-            CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
-            for (int i = 0; i < toBeRemovedSpans.length; i++){
-                s.removeSpan(toBeRemovedSpans[i]);
-            }
-
-            if(!TextUtils.isEmpty(s.toString())){
-                response.responseJson = s.toString();
-            }else{
-                response.responseJson = "";
-            }
-
+            presenter.updateResponseJson(s);
         }
     };
+
+    @Override
+    public void setResponse(MockerResponse response) {
+        setToolbarTitle(response.responseName);
+
+        if(!TextUtils.isEmpty(response.responseName))
+            responseNameEditText.setText(response.responseName);
+        statusCodeEditText.setText(String.valueOf(response.statusCode));
+        if(!TextUtils.isEmpty(response.responseJson))
+            mockedResponseEditText.setText(response.responseJson);
+
+        mockerToggle.setChecked(response.responseEnabled);
+        globalHeaderToggle.setChecked(response.includeGlobalHeader);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        setToolbarTitle(title);
+    }
 }

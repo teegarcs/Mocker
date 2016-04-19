@@ -12,10 +12,7 @@
         <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
         <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
-        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugAndroidTest" />
-        <option name="COMPILE_JAVA_TEST_TASK_NAME" value="compileDebugAndroidTestSources" />
         <afterSyncTasks>
-          <task>generateDebugAndroidTestSources</task>
           <task>generateDebugSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
@@ -29,7 +26,7 @@
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../library/build/intermediates/classes/debug" />
-    <output-test url="file://$MODULE_DIR$/../library/build/intermediates/classes/androidTest/debug" />
+    <output-test url="file://$MODULE_DIR$/../library/build/intermediates/classes/test/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../library">
       <sourceFolder url="file://$MODULE_DIR$/../library/build/generated/source/r/debug" isTestSource="false" generated="true" />
@@ -51,6 +48,13 @@
       <sourceFolder url="file://$MODULE_DIR$/../library/src/debug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/debug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/testDebug/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/assets" type="java-resource" />
@@ -58,6 +62,13 @@
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/assets" type="java-test-resource" />
@@ -65,13 +76,14 @@
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/rs" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/.DS_Store" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/.DS_Store" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/coverage-instrumented-classes" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/dex" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/dex-cache" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/exploded-aar/com.android.support/design/23.2.0/jars" />
@@ -79,17 +91,13 @@
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/incremental" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/jacoco" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/javaResources" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/lint" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/ndk" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/pre-dexed" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/proguard" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/mockable-android-23.jar" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/tmp" />
     </content>

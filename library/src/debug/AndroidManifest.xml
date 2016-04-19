@@ -5,27 +5,37 @@
     <application>
         <activity
             android:name=".internals.MockerHomeActivity"
-            android:theme="@style/MockerTheme">
+            android:theme="@style/MockerTheme"
+            android:exported="false"
+            android:launchMode="singleTop">
         </activity>
 
         <activity
             android:name=".internals.MockerScenarioActivity"
-            android:theme="@style/MockerTheme">
+            android:theme="@style/MockerTheme"
+            android:exported="false"
+            android:launchMode="singleTop">
         </activity>
 
         <activity
             android:name=".internals.MockerResponseActivity"
-            android:theme="@style/MockerTheme">
+            android:theme="@style/MockerTheme"
+            android:exported="false"
+            android:launchMode="singleTop">
         </activity>
 
         <activity
             android:name=".internals.MockerOptionsActivity"
-            android:theme="@style/MockerTheme">
+            android:theme="@style/MockerTheme"
+            android:exported="false"
+            android:launchMode="singleTop">
         </activity>
 
         <activity
             android:name=".internals.MockerJsonViewerActivity"
-            android:theme="@style/MockerTheme">
+            android:theme="@style/MockerTheme"
+            android:exported="false"
+            android:launchMode="singleTop">
         </activity>
 
         <receiver android:name=".MockMatchingReceiver" >

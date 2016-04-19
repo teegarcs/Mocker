@@ -8,15 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.teegarcs.mocker.MockerInitializer;
 import com.teegarcs.mocker.R;
-import com.teegarcs.mocker.internals.ScenarioRecyclerAdapter.ScenarioListener;
+import com.teegarcs.mocker.internals.adapters.ScenarioRecyclerAdapter;
+import com.teegarcs.mocker.internals.adapters.ScenarioRecyclerAdapter.ScenarioListener;
+import com.teegarcs.mocker.internals.interactors.HomeInteractor;
+import com.teegarcs.mocker.internals.model.MockerDock;
+import com.teegarcs.mocker.internals.presenters.HomePresenter;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +34,7 @@ import com.teegarcs.mocker.internals.ScenarioRecyclerAdapter.ScenarioListener;
  limitations under the License.
  */
 
-public class MockerHomeActivity extends MockerToolbarActivity implements ScenarioListener {
+public class MockerHomeActivity extends MockerToolbarActivity implements ScenarioListener, HomeInteractor {
 
     private SwitchCompat mockerToggle;
     private RecyclerView scenarioRecyclerView;
@@ -40,47 +42,32 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
     private ScenarioRecyclerAdapter adapter;
     private FloatingActionButton faButton;
     private View globalHeaderView, mockerViewer;
+    private HomePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mocker_home);
         setToolbarTitle("Mocker Home");
-        dataLayer = new MockerDataLayer(this);
-        mockerDock = dataLayer.getMockerDockData();
+        setUpNav(true);
+        presenter = new HomePresenter(new MockerDataLayer(this));
+        setBasePresenter(presenter);
+
         mockerToggle = (SwitchCompat)findViewById(R.id.mockerToggle);
-        mockerToggle.setChecked(!mockerDock.mockerDisabled);
-
-       mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-           @Override
-           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if (isChecked) {
-                   mockerDock.mockerDisabled = false;
-               } else {
-                   mockerDock.mockerDisabled = true;
-               }
-           }
-       });
-
         scenarioRecyclerView = (RecyclerView)findViewById(R.id.scenarioRecyclerView);
+        faButton = (FloatingActionButton)findViewById(R.id.faButton);
+        globalHeaderView = findViewById(R.id.globalHeaderView);
+        mockerViewer = findViewById(R.id.mockerViewer);
+
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         scenarioRecyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ScenarioRecyclerAdapter(this, mockerDock, this);
-        scenarioRecyclerView.setAdapter(adapter);
 
-        faButton = (FloatingActionButton)findViewById(R.id.faButton);
-        faButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MockerScenario scenario = new MockerScenario();
-                scenario.serviceName = "default name";
-                scenario.urlPattern = "default URL pattern";
-                scenario.mockerEnabled = false;
-                scenario.requestType = RequestType.GET;
-                mockerDock.mockerScenario.add(scenario);
-                adapter.notifyDataSetChanged();
-                scenarioSelected(mockerDock.mockerScenario.size() - 1);
+
+        mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               presenter.toggleMocker(!isChecked);
             }
         });
 
@@ -96,7 +83,6 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
             }
         });
 
-        globalHeaderView = findViewById(R.id.globalHeaderView);
         globalHeaderView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +93,6 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
         });
 
 
-        mockerViewer = findViewById(R.id.mockerViewer);
         mockerViewer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,24 +101,37 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
             }
         });
 
+        faButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addMockerScenario();
+            }
+        });
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        presenter.takeView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(MockerInitializer.checkforUpdate()){
-            adapter.notifyDataSetChanged();
-            MockerInitializer.setUpdateMade(false);
-        }
-
+        presenter.refreshData();
     }
 
     @Override
     protected void upNavPressed() {
-        //no upNav option here.
+        finish();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -142,20 +140,8 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-//        if (id == R.id.action_share) {
-//
-//            //handle here
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void scenarioToggle(boolean enabled, int pos) {
-        mockerDock.mockerScenario.get(pos).setEnabled(enabled);
+       presenter.toggleScenario(enabled, pos);
     }
 
     @Override
@@ -163,5 +149,26 @@ public class MockerHomeActivity extends MockerToolbarActivity implements Scenari
         Intent forward = new Intent(this,MockerScenarioActivity.class);
         forward.putExtra(MockerScenarioActivity.EXTRA_SCENARIO_POSITION, pos);
         startActivity(forward);
+    }
+
+    @Override
+    public void setMockerDock(MockerDock mockerDock) {
+        adapter = new ScenarioRecyclerAdapter(this, mockerDock, this);
+        scenarioRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void updateAdapter() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void selectScenario(int pos) {
+        scenarioSelected(pos);
+    }
+
+    @Override
+    public void setMockerToggle(boolean onOff) {
+        mockerToggle.setChecked(onOff);
     }
 }

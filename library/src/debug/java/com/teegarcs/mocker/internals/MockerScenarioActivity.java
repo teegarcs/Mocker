@@ -17,9 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
-import com.teegarcs.mocker.MockerInitializer;
 import com.teegarcs.mocker.R;
-import com.teegarcs.mocker.internals.ResponseRecyclerAdapter.ResponseListener;
+import com.teegarcs.mocker.internals.adapters.ResponseRecyclerAdapter;
+import com.teegarcs.mocker.internals.adapters.ResponseRecyclerAdapter.ResponseListener;
+import com.teegarcs.mocker.internals.interactors.ScenarioInteractor;
+import com.teegarcs.mocker.internals.model.MockerScenario;
+import com.teegarcs.mocker.internals.presenters.ScenarioPresenter;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,26 +39,23 @@ import com.teegarcs.mocker.internals.ResponseRecyclerAdapter.ResponseListener;
 
  * Created by cteegarden on 3/1/16.
  */
-public class MockerScenarioActivity extends MockerToolbarActivity implements ResponseListener {
+public class MockerScenarioActivity extends MockerToolbarActivity implements ResponseListener, ScenarioInteractor {
     public static final String EXTRA_SCENARIO_POSITION = "EXTRA_SCENARIO_POSITION";
-    private MockerScenario scenario;
+
     private SwitchCompat mockerToggle;
     private EditText serviceNameEditText, urlPatternEditText;
     private RecyclerView responseRecyclerView;
     private FloatingActionButton faButton;
     private ResponseRecyclerAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    int scenarioPosition;
+    private ScenarioPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mocker_scenario);
-        dataLayer = new MockerDataLayer(this);
-        mockerDock = dataLayer.getMockerDockData();
-        scenarioPosition = getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION);
-        scenario = mockerDock.mockerScenario.get(scenarioPosition);
-        setToolbarTitle(scenario.serviceName);
+        presenter = new ScenarioPresenter(new MockerDataLayer(this), getIntent().getExtras().getInt(EXTRA_SCENARIO_POSITION));
+        setBasePresenter(presenter);
         setUpNav(true);
 
         mockerToggle = (SwitchCompat)findViewById(R.id.mockerToggle);
@@ -64,64 +64,48 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
         responseRecyclerView = (RecyclerView)findViewById(R.id.responseRecyclerView);
         faButton = (FloatingActionButton)findViewById(R.id.faButton);
 
+        serviceNameEditText.addTextChangedListener(scenarioNameWatcher);
+        urlPatternEditText.addTextChangedListener(urlPatternWatcher);
 
-        if(!TextUtils.isEmpty(scenario.serviceName))
-            serviceNameEditText.setText(scenario.serviceName);
-        if(!TextUtils.isEmpty(scenario.urlPattern))
-            urlPatternEditText.setText(scenario.urlPattern);
-        mockerToggle.setChecked(scenario.mockerEnabled);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        responseRecyclerView.setLayoutManager(linearLayoutManager);
+
         mockerToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(scenario.setEnabled(isChecked)) {
-                    // the first response was enabled by default
-                    // update recyclerview to reflect this
-                    adapter.notifyItemChanged(0);
-                }
-                MockerInitializer.setUpdateMade(true);
+                presenter.toggleScenario(isChecked);
             }
         });
 
         faButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                MockerResponse response = new MockerResponse();
-                response.responseJson = "";
-                response.statusCode = 200;
-                response.responseName = "default name";
-                response.includeGlobalHeader = false;
-                response.responseEnabled = false;
-                scenario.response.add(response);
-                adapter.notifyDataSetChanged();
-                responseSelected(scenario.response.size()-1);
+               presenter.addResponse();
             }
         });
+    }
 
-        serviceNameEditText.addTextChangedListener(scenarioNameWatcher);
-        urlPatternEditText.addTextChangedListener(urlPatternWatcher);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        presenter.takeView(this);
+    }
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ResponseRecyclerAdapter(this, scenario, this);
-
-        responseRecyclerView.setLayoutManager(linearLayoutManager);
-        responseRecyclerView.setAdapter(adapter);
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(MockerInitializer.checkforUpdate()){
-            adapter.notifyDataSetChanged();
-        }
+        presenter.refreshData();
     }
 
     @Override
     protected void upNavPressed() {
-        //no upNav option here.
         finish();
     }
 
@@ -135,16 +119,14 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_delete){
-            mockerDock.mockerScenario.remove(scenarioPosition);
-            MockerInitializer.setUpdateMade(true);
+            presenter.deleteScenario();
             finish();
             return true;
         }else if(id == R.id.action_duplicate){
-            mockerDock.mockerScenario.add(new MockerScenario(mockerDock.mockerScenario.get(scenarioPosition)));
-            MockerInitializer.setUpdateMade(true);
+            presenter.duplicateScenario();
             return true;
         }else if (id == R.id.action_share) {
-            String tempdata = dataLayer.convertObjectToJson(mockerDock.mockerScenario.get(scenarioPosition));
+            String tempdata = presenter.getShareData();
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.setType("text/plain");
@@ -158,25 +140,14 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
 
     @Override
     public void responseToggle(boolean enabled, int pos) {
-        scenario.response.get(pos).responseEnabled = enabled;
-
-        if(enabled){
-            //if we are enabling one... disable the rest
-           for(int i=0; i<scenario.response.size(); i++){
-               if(pos ==i)
-                   continue;
-               scenario.response.get(i).responseEnabled = false;
-           }
-        }
-
-        adapter.notifyDataSetChanged();
+        presenter.toggleResponse(enabled, pos);
 
     }
 
     @Override
     public void responseSelected(int pos) {
         Intent forward = new Intent(this, MockerResponseActivity.class);
-        forward.putExtra(MockerResponseActivity.EXTRA_SCENARIO_POSITION, scenarioPosition);
+        forward.putExtra(MockerResponseActivity.EXTRA_SCENARIO_POSITION, presenter.getScenarioPos());
         forward.putExtra(MockerResponseActivity.EXTRA_RESPONSE_POSITION, pos);
         startActivity(forward);
     }
@@ -194,14 +165,7 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(s.toString())){
-                scenario.serviceName = s.toString();
-            }else{
-                scenario.serviceName = "";
-            }
-
-            MockerInitializer.setUpdateMade(true);
-            setToolbarTitle(scenario.serviceName);
+            presenter.updateScenarioName(s.toString());
         }
     };
 
@@ -218,12 +182,43 @@ public class MockerScenarioActivity extends MockerToolbarActivity implements Res
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(s.toString())){
-                scenario.urlPattern = s.toString();
-            }else{
-                scenario.urlPattern = "";
-            }
+            presenter.updateUrlPattern(s.toString());
 
         }
     };
+
+    @Override
+    public void setScenario(MockerScenario scenario) {
+        setToolbarTitle(scenario.serviceName);
+
+        if(!TextUtils.isEmpty(scenario.serviceName))
+            serviceNameEditText.setText(scenario.serviceName);
+        if(!TextUtils.isEmpty(scenario.urlPattern))
+            urlPatternEditText.setText(scenario.urlPattern);
+        mockerToggle.setChecked(scenario.mockerEnabled);
+
+
+        adapter = new ResponseRecyclerAdapter(this, scenario, this);
+        responseRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void updateAdapter() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateAdapter(int pos) {
+        adapter.notifyItemChanged(0);
+    }
+
+    @Override
+    public void selectResponse(int pos) {
+        responseSelected(pos);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        setToolbarTitle(title);
+    }
 }

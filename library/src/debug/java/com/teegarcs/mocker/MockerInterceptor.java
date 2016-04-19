@@ -1,10 +1,10 @@
 package com.teegarcs.mocker;
 
 import com.teegarcs.mocker.internals.MockerDataLayer;
-import com.teegarcs.mocker.internals.MockerDock;
-import com.teegarcs.mocker.internals.MockerHeader;
-import com.teegarcs.mocker.internals.MockerResponse;
-import com.teegarcs.mocker.internals.MockerScenario;
+import com.teegarcs.mocker.internals.model.MockerDock;
+import com.teegarcs.mocker.internals.model.MockerHeader;
+import com.teegarcs.mocker.internals.model.MockerResponse;
+import com.teegarcs.mocker.internals.model.MockerScenario;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -39,11 +39,14 @@ import okio.Source;
  * Created by cteegarden on 3/1/16.
  */
 public class MockerInterceptor implements Interceptor {
+
     private MockerDock mockerDock;
     private MockerDataLayer dataLayer;
+
     public MockerInterceptor(MockerDataLayer dataLayer){
         this.dataLayer = dataLayer;
     }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
 

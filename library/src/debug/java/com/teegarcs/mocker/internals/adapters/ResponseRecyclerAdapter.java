@@ -1,4 +1,4 @@
-package com.teegarcs.mocker.internals;
+package com.teegarcs.mocker.internals.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.teegarcs.mocker.R;
+import com.teegarcs.mocker.internals.model.MockerResponse;
+import com.teegarcs.mocker.internals.model.MockerScenario;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,14 +31,14 @@ import com.teegarcs.mocker.R;
  limitations under the License.
  * Created by cteegarden on 3/1/16.
  */
-public class ScenarioRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class ResponseRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private Context context;
-    private MockerDock mockerDock;
-    private ScenarioListener listener;
-    public ScenarioRecyclerAdapter(Context context, MockerDock mockerDock, ScenarioListener listener){
+    private MockerScenario scenario;
+    private ResponseListener listener;
+    public ResponseRecyclerAdapter(Context context, MockerScenario scenario, ResponseListener listener){
         this.context = context;
-        this.mockerDock = mockerDock;
+        this.scenario = scenario;
         this.listener = listener;
     }
 
@@ -47,30 +49,31 @@ public class ScenarioRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        MockerScenario scenario = mockerDock.mockerScenario.get(position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        MockerResponse response = scenario.response.get(position);
 
-        ((ScenarioHolder)holder).scenarioName.setText(scenario.serviceName);
+        ((ScenarioHolder)holder).scenarioName.setText(response.responseName);
         ((ScenarioHolder)holder).scenarioToggle.setOnCheckedChangeListener(null);
-        ((ScenarioHolder)holder).scenarioToggle.setChecked(scenario.mockerEnabled);
+        ((ScenarioHolder)holder).scenarioToggle.setChecked(response.responseEnabled);
         ((ScenarioHolder)holder).scenarioToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                listener.scenarioToggle(isChecked, position);
+                listener.responseToggle(isChecked, position);
+
             }
         });
 
         ((ScenarioHolder)holder).scenarioRow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.scenarioSelected(position);
+                listener.responseSelected(position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mockerDock.mockerScenario.size();
+        return scenario.response.size();
     }
 
     public static final class ScenarioHolder extends ViewHolder{
@@ -87,8 +90,8 @@ public class ScenarioRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         }
     }
 
-    interface ScenarioListener{
-        void scenarioToggle(boolean enabled, int pos);
-        void scenarioSelected(int pos);
+    public interface ResponseListener{
+        void responseToggle(boolean enabled, int pos);
+        void responseSelected(int pos);
     }
 }

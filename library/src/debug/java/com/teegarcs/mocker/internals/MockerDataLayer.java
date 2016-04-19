@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.teegarcs.mocker.MockerInitializer;
+import com.teegarcs.mocker.internals.model.MockerDock;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -182,7 +183,7 @@ public class MockerDataLayer {
      * @param context
      * @return boolean
      */
-    protected boolean saveContent(String content, String name,
+    public boolean saveContent(String content, String name,
                                   Context context) {
         boolean success = false;
         FileOutputStream output = null;

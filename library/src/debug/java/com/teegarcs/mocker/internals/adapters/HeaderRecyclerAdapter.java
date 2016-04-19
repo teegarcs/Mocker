@@ -1,4 +1,4 @@
-package com.teegarcs.mocker.internals;
+package com.teegarcs.mocker.internals.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.teegarcs.mocker.R;
+import com.teegarcs.mocker.internals.model.MockerHeader;
 
 import java.util.ArrayList;
 
@@ -135,7 +136,7 @@ public class HeaderRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         }
     }
 
-    interface HeaderListener{
+    public interface HeaderListener{
         void nameChanged(String name, int pos);
         void valueChanged(String value, int pos);
         void deleteHeader(int pos);
