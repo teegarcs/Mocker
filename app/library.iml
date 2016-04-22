@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":library" external.linked.project.path="$MODULE_DIR$/../library" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Mocker" external.system.module.version="1.1.0" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":library" external.linked.project.path="$MODULE_DIR$/../library" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Mocker" external.system.module.version="1.1.1" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -62,13 +62,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/assets" type="java-test-resource" />
@@ -76,8 +69,13 @@
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../library/src/androidTest/rs" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/.DS_Store" />
-      <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/.DS_Store" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../library/src/test/rs" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/../library/build/intermediates/blame" />
