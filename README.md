@@ -22,8 +22,8 @@ repositories {
   maven { url 'https://github.com/teegarcs/Mocker/raw/master/'}
 }
  dependencies {
-  debugCompile 'com.teegarcs.mocker:debug:1.1.0@aar'
-  releaseCompile 'com.teegarcs.mocker:release:1.1.0@aar'
+  debugCompile 'com.teegarcs.mocker:debug:1.1.1@aar'
+  releaseCompile 'com.teegarcs.mocker:release:1.1.1@aar'
  }
 ```
 *There is a release and a debug build for convenience only. The purpose of the release build is to provide the barebones Mocker project so that you do not have to manually remove any code when making a production build. The release build contains the methods used in your code but removes the rest of its dependencies.*
